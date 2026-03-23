@@ -1,6 +1,6 @@
 {
   "name": "@philiprehberger/deep-equal",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Fast deep equality comparison for JavaScript values with TypeScript type guards",
   "type": "module",
   "main": "./dist/index.cjs",
