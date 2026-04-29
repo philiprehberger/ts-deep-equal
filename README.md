@@ -4,7 +4,7 @@
 [![npm version](https://img.shields.io/npm/v/@philiprehberger/deep-equal.svg)](https://www.npmjs.com/package/@philiprehberger/deep-equal)
 [![Last updated](https://img.shields.io/github/last-commit/philiprehberger/ts-deep-equal)](https://github.com/philiprehberger/ts-deep-equal/commits/main)
 
-Fast deep equality comparison for JavaScript values with TypeScript type guards.
+Fast deep equality comparison for JavaScript values with TypeScript type guards
 
 ## Installation
 
@@ -33,18 +33,30 @@ b.self = b;
 deepEqual(a, b, { circular: true }); // true
 ```
 
+### Compare by selector
+
+```ts
+import { deepEqualBy } from '@philiprehberger/deep-equal';
+
+const a = { id: 1, ts: 'now', body: { x: 1 } };
+const b = { id: 2, ts: 'later', body: { x: 1 } };
+
+deepEqualBy(a, b, (r) => r.body); // true — ignores id/ts
+```
+
 ## API
 
-### `deepEqual(a: unknown, b: unknown, options?: DeepEqualOptions): boolean`
+| Method | Description |
+|--------|-------------|
+| `deepEqual(a, b, options?)` | Deep equality comparison |
+| `deepEqualBy(a, b, selector, options?)` | Compare two values projected through a selector |
 
-Performs a deep equality comparison between two values.
+### `DeepEqualOptions`
 
-**Options:**
-
-| Option     | Type      | Default | Description                                      |
-| ---------- | --------- | ------- | ------------------------------------------------ |
-| `strict`   | `boolean` | `false` | Use `Object.is` semantics (NaN, -0/+0 handling) |
-| `circular` | `boolean` | `false` | Detect and handle circular references            |
+| Option | Type | Default | Description |
+|--------|------|---------|-------------|
+| `strict` | `boolean` | `false` | Use `Object.is` semantics (NaN, -0/+0 handling) |
+| `circular` | `boolean` | `false` | Detect and handle circular references |
 
 **Supported types:** primitives, plain objects, arrays, `Date`, `RegExp`, `Map`, `Set`, `TypedArray`, `Error`, `BigInt`.
 

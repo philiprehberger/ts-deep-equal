@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.2.0
+
+- Add `deepEqualBy(a, b, selector, options?)` for comparing values projected through a selector function
+- Remove trailing period from README one-liner to match the standard template
+
 ## 0.1.3
 
 - Standardize README to 3-badge format with emoji Support section

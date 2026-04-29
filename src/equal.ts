@@ -17,6 +17,15 @@ export function deepEqual(
   return compare(a, b, strict, false, undefined, undefined);
 }
 
+export function deepEqualBy<T, U>(
+  a: T,
+  b: T,
+  selector: (value: T) => U,
+  options?: DeepEqualOptions,
+): boolean {
+  return deepEqual(selector(a), selector(b), options);
+}
+
 function compare(
   a: unknown,
   b: unknown,

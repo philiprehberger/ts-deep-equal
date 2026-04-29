@@ -1,6 +1,6 @@
 import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
-import { deepEqual } from '../../dist/index.js';
+import { deepEqual, deepEqualBy } from '../../dist/index.js';
 
 describe('deepEqual', () => {
   describe('primitives', () => {
@@ -153,6 +153,26 @@ describe('deepEqual', () => {
       assert.equal(deepEqual(null, 0), false);
       assert.equal(deepEqual([], {}), false);
       assert.equal(deepEqual(true, 1), false);
+    });
+  });
+
+  describe('deepEqualBy', () => {
+    it('compares projected values', () => {
+      const a = { id: 1, ts: 'a', body: { x: 1 } };
+      const b = { id: 2, ts: 'b', body: { x: 1 } };
+      assert.equal(deepEqualBy(a, b, (r) => r.body), true);
+      assert.equal(deepEqualBy(a, b, (r) => r.id), false);
+    });
+
+    it('forwards options to deepEqual', () => {
+      const a: Record<string, unknown> = { x: 1 };
+      a.self = a;
+      const b: Record<string, unknown> = { x: 1 };
+      b.self = b;
+      assert.equal(
+        deepEqualBy({ wrap: a }, { wrap: b }, (r) => r.wrap, { circular: true }),
+        true,
+      );
     });
   });
 });
